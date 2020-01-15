@@ -2,3 +2,14 @@
 # Garindan
 # Dylan Resha
 echo hello
+
+#if just garindan print out information about the currently logged on users
+#if "garindan all" find out information about all users in our class (BEARSROCK)
+#lastly garindan for specif users shows just there info
+
+#if(args == 0)
+#  list = online users, who
+#else if(args == all)
+#  list = users in our class, grep BEARSROCK
+#else 
+#  list = $*
