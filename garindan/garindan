@@ -13,3 +13,16 @@ echo hello
 #  list = users in our class, grep BEARSROCK
 #else 
 #  list = $*
+
+if [ "$1" = "all" ] 
+then
+	echo ALL
+fi 
+
+if [ "$1" = "" ]
+then
+  echo Reg
+fi
+
+#else
+#$*
