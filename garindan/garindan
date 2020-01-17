@@ -1,8 +1,6 @@
 #!/bin/bash
 # Garindan
 # Dylan Resha
-echo hello
-
 #if just garindan print out information about the currently logged on users
 #if "garindan all" find out information about all users in our class (BEARSROCK)
 #lastly garindan for specif users shows just there info
@@ -16,12 +14,52 @@ echo hello
 
 if [ "$1" = "all" ] 
 then
-	echo ALL
-fi 
+
+  userID=(`grep BEARSROCK /etc/passwd | cut -d":" -f1`)
+  
+  printf "%-25s" "User ID" "Full Name" "Phone Number" "TTY" "What"
+  echo
+  echo
+  for i in ${userID[@]}; do
+    printf "%-25s" "`grep $i /etc/passwd | cut -d":" -f1`" 
+     
+    printf "%-25s" "`grep $i /etc/passwd | cut -d":" -f5 | cut -d"," -f1 | tr " " "_"`"  
+     
+    printf "%-25s" "`grep $i /etc/passwd | cut -d":" -f5 | cut -d"," -f3 | tr " " "_"`" 
+        
+    printf "%-25s" "`who | grep -v root | grep $i | cut -d" " -f2`"
+     
+    printf "%-25s" "`w -h $i | tr -s " " | cut -d" " -f8-`"
+    printf $'\n' 
+      
+  done
+  
+fi
+####################################################################################################
 
 if [ "$1" = "" ]
 then
-  echo Reg
+ 
+  userID=`who | grep -v root | cut -d" " -f1`
+  
+  printf "%-25s" "User ID" "Full Name" "Phone Number" "TTY" "What"
+  echo
+  echo
+  
+  for i in $userID; do
+    printf "%-25s" "`who | grep -v root | grep $i | cut -d" " -f1`" 
+     
+    printf "%-25s" "`grep $i /etc/passwd | cut -d":" -f5 | cut -d"," -f1`"  
+     
+    printf "%-25s" "`grep $i /etc/passwd | cut -d":" -f5 | cut -d"," -f3`" 
+        
+    printf "%-25s" "`who | grep -v root | grep $i | cut -d" " -f2`"
+     
+    printf "%-25s" "`w -h $i | tr -s " " | cut -d" " -f8-`"
+    printf $'\n' 
+      
+  done
+ 
 fi
 
 #else
