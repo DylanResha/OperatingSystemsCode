@@ -29,7 +29,7 @@ then
     
     if [ "`who | grep $i`" != "" ];
      then    
-      printf "%-25s" "`who | grep -v root | grep $i | cut -d" " -f2`"
+      printf "%-25s" "`who | grep -v root |  tr -s " " | grep $i | cut -d" " -f2`"
       printf "%-25s" "`w -h $i | tr -s " " | cut -d" " -f8-`"
      else
      printf "%-25s" "NOT ON"
