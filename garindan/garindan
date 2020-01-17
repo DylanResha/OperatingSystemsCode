@@ -44,25 +44,25 @@ then
 elif [ "$1" = "" ]
 then
  
-  userID=`who | grep -v root | cut -d" " -f1`
+  userID=`who | grep -v root | tr -s " " | cut -d" " -f1`
   
   printf "%-25s" "User ID" "Full Name" "Phone Number" "TTY" "What"
   echo
   echo
   
   for i in $userID; do
-    printf "%-25s" "`who | grep -v root | grep $i | cut -d" " -f1`" 
+    printf "%-25s" "`who | grep -v root |  tr -s " " | grep $i | cut -d" " -f1`" 
      
     printf "%-25s" "`grep $i /etc/passwd | cut -d":" -f5 | cut -d"," -f1`"  
      
     printf "%-25s" "`grep $i /etc/passwd | cut -d":" -f5 | cut -d"," -f3`" 
             
-    printf "%-25s" "`who | grep -v root | grep $i | cut -d" " -f2`" 
+    printf "%-25s" "`who | grep -v root |  tr -s " " | grep $i | cut -d" " -f2`" 
     
     printf "%-25s" "`w -h $i | tr -s " " | cut -d" " -f8-`"
 
     printf $'\n' 
-      
+    
   done
  
 else
