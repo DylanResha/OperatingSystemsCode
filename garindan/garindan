@@ -15,29 +15,33 @@
 if [ "$1" = "all" ] 
 then
 
-  userID=(`grep BEARSROCK /etc/passwd | cut -d":" -f1`)
+  userID=`grep BEARSROCK /etc/passwd | cut -d":" -f1`
   
   printf "%-25s" "User ID" "Full Name" "Phone Number" "TTY" "What"
   echo
   echo
-  for i in ${userID[@]}; do
+  for i in $userID; do
     printf "%-25s" "`grep $i /etc/passwd | cut -d":" -f1`" 
      
     printf "%-25s" "`grep $i /etc/passwd | cut -d":" -f5 | cut -d"," -f1 | tr " " "_"`"  
      
     printf "%-25s" "`grep $i /etc/passwd | cut -d":" -f5 | cut -d"," -f3 | tr " " "_"`" 
-        
-    printf "%-25s" "`who | grep -v root | grep $i | cut -d" " -f2`"
-     
-    printf "%-25s" "`w -h $i | tr -s " " | cut -d" " -f8-`"
+    
+    if [ "`who | grep $i`" != "" ];
+     then    
+      printf "%-25s" "`who | grep -v root | grep $i | cut -d" " -f2`"
+      printf "%-25s" "`w -h $i | tr -s " " | cut -d" " -f8-`"
+     else
+     printf "%-25s" "NOT ON"
+     printf "%-25s" "-"
+    fi 
+    
     printf $'\n' 
       
   done
   
-fi
-####################################################################################################
 
-if [ "$1" = "" ]
+elif [ "$1" = "" ]
 then
  
   userID=`who | grep -v root | cut -d" " -f1`
@@ -52,15 +56,41 @@ then
     printf "%-25s" "`grep $i /etc/passwd | cut -d":" -f5 | cut -d"," -f1`"  
      
     printf "%-25s" "`grep $i /etc/passwd | cut -d":" -f5 | cut -d"," -f3`" 
-        
-    printf "%-25s" "`who | grep -v root | grep $i | cut -d" " -f2`"
-     
+            
+    printf "%-25s" "`who | grep -v root | grep $i | cut -d" " -f2`" 
+    
     printf "%-25s" "`w -h $i | tr -s " " | cut -d" " -f8-`"
+
     printf $'\n' 
       
   done
  
+else
+ 
+ 
+  printf "%-25s" "User ID" "Full Name" "Phone Number" "TTY" "What"
+  echo
+  echo
+  for i in $*; do
+    printf "%-25s" "`grep $i /etc/passwd | cut -d":" -f1`" 
+     
+    printf "%-25s" "`grep $i /etc/passwd | cut -d":" -f5 | cut -d"," -f1 | tr " " "_"`"  
+     
+    printf "%-25s" "`grep $i /etc/passwd | cut -d":" -f5 | cut -d"," -f3 | tr " " "_"`" 
+    
+    if [ "`who | grep $i`" != "" ];
+     then    
+      printf "%-25s" "`who | grep -v root | grep $i | cut -d" " -f2`"
+      printf "%-25s" "`w -h $i | tr -s " " | cut -d" " -f8-`"
+     else
+     printf "%-25s" "NOT ON"
+     printf "%-25s" "-"
+    fi 
+    
+    printf $'\n' 
+      
+  done
+  
 fi
-
-#else
+####################################################################################################
 #$*
