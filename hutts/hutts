@@ -148,6 +148,8 @@ exit
   cd ..
   cd garindan
   garindan $args
+  cd .. 
+  cd hutts
  fi
 ################################################################################# 
  if(test "$cmd" != "huttsout"&& test "$cmd" != "garindan"&& test "$cmd" != "huttify"&& test "$cmd" != "hutty"&& test "$cmd" != "bighutt"&& test "$cmd" != "helphutts"&& test "$cmd" != "huttsstuff"&& test "$cmd" != "huttslist"&& test "$cmd" != "huttscall"&& test "$cmd" != "huttshow")then
