@@ -5,7 +5,6 @@
 #include <stdio.h>
 #include <sys/types.h>
 #include <unistd.h>
-#include<signal.h>
 
 int main(int argc, char *argv[])
 {
@@ -14,16 +13,16 @@ int N;
      N = atoi(argv[1]);
      if(N <= 5 && N >= 1 )
       {
+      int j=0;
        printf("%-10s","GEN\tPID\tPPID\n");
-         int i=0;
+       printf("%d\t%d\t%d\n",j,getpid(),getppid());
+         int i;
          for( i=0; i<N; i++)
             {
               fork();
               //printf("i: %d\n\n",i);
-              printf("%d\t%d\t%d\n",i,getpid(),getppid());
+              printf("%d\t%d\t%d\n",i+1,getpid(),getppid());
               sleep (1);
-              int parent = getppid();
-
             }
             
         }
