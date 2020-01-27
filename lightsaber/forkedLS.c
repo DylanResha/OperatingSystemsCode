@@ -16,11 +16,13 @@ int N;
        printf("%-10s","GEN\tPID\tPPID\n");
          int currentGen = 0;
          int i;
-         for( i=N; i>0; i--)
+         for( i=0; i<N; i++)
             {
 
               if(fork() == 0){
-              currentGen++;                          
+              i= -1;
+              currentGen++;
+              N--;                      
               }
 
             }
