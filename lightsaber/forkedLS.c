@@ -13,18 +13,19 @@ int N;
      N = atoi(argv[1]);
      if(N <= 5 && N >= 1 )
       {
-      int j=0;
        printf("%-10s","GEN\tPID\tPPID\n");
-       printf("%d\t%d\t%d\n",j,getpid(),getppid());
+         int currentGen = 0;
          int i;
-         for( i=0; i<N; i++)
+         for( i=N; i>0; i--)
             {
-              fork();
-              //printf("i: %d\n\n",i);
-              printf("%d\t%d\t%d\n",i+1,getpid(),getppid());
-              sleep (1);
+
+              if(fork() == 0){
+              currentGen++;                          
+              }
+
             }
-            
+            printf("%d\t%d\t%d\n",currentGen,getpid(),getppid());
+            sleep(1); 
         }
         
       else{
